@@ -76,7 +76,7 @@ I={}
 posting_list= {}
 
 #Per ogni file:
-TOT_FILE = 100
+TOT_FILE = 63364
 
 for number in range(TOT_FILE):
     #leggilo
