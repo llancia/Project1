@@ -76,7 +76,7 @@ I={}
 posting_list= {}
 
 #Per ogni file:
-TOT_FILE = 1000
+TOT_FILE = 100
 
 for number in range(TOT_FILE):
     #leggilo
@@ -102,10 +102,20 @@ dictionary.sort()
 #print posting_list
 
 
+
 #se non esiste la cartella index allora creala
 if not os.path.exists("index"):
     os.makedirs("index")
 outpath="./index/"
-indexfile= open(outpath+"index.txt", "w")
-for key, val in I.iteritems():
-    indexfile.write(key+"\t"+str(val)+"\n")
+vocfile= open(outpath+"vocabulary.txt", "w")
+postlistfile = open(outpath+"postings.txt", "w")
+nword=0
+for word in dictionary:
+    vocfile.write(str(nword)+"\t"+word+"\n")
+    outstr=""
+    for element in posting_list[word]:
+        outstr+=str(element[0])+"\t"
+    postlistfile.write(str(nword)+"\t"+outstr+"\n")
+    nword+=1
+
+
