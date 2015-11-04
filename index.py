@@ -1,4 +1,6 @@
 import re
+import sys
+import os
 import nltk as nl
 from nltk.stem import SnowballStemmer
 snowball_stemmer = SnowballStemmer("italian")
@@ -10,11 +12,15 @@ def bag(read_data, threshold=1):
     read_data= read_data
     #tokenizza, rimuovi le stopword e fai lo stemming
     read_data=  re.split("['\`\-\=\~\!\@\#\$\%\^\&\*\(\)\_\+\[\]\{\}\;\'\\\:\"\|\<\,\.\/\>\<\>\?\"\\s\''']+", read_data)
+    if read_data[-1]==u'':
+        del read_data[-1]
     filtered_words = [word for word in read_data if word not in nl.corpus.stopwords.words('italian')]
     read_data = [snowball_stemmer.stem(word).encode("utf-8") for word in filtered_words]
     
     out = dict(Counter(read_data))
     return {i:out[i] for i in out if out[i]>= threshold}
+def update_progress(progress):
+    print '\r[{0}] {1}%'.format('#'*(progress/10), progress)
 
 def incrindex(k, leng):
     if k<leng:
@@ -23,7 +29,7 @@ def incrindex(k, leng):
         return k
     
 def addtoIndex(I, bag, posting_list, doc_id):
-    print "unisco il file", doc_id
+    #print "unisco il file", doc_id
     list1 = I.keys()
     list2 = bag.keys()
     list1.sort()
@@ -62,7 +68,7 @@ def addtoIndex(I, bag, posting_list, doc_id):
 
 def readfile(number):
     
-    path= "./documents/documents-"+str(number/500).zfill(6)+"-"+str(number/500 +500).zfill(6)+"/"
+    path= "./documents/documents-"+str((number/500) *500).zfill(6)+"-"+str((number/500)*500 +500).zfill(6)+"/"
     file = open(path+str(number).zfill(6)+".txt","r")
     data=file.readline().decode("utf-8")
     return data    
@@ -71,11 +77,17 @@ I={}
 posting_list= {}
 
 #Per ogni file:
+TOT_FILE = 1000
 
-for number in range(100):
+for number in range(TOT_FILE):
     #leggilo
     data = readfile(number)
-    print "file numero", number, "\n"
+
+    progress= "completamento "+str( (number*1.)/TOT_FILE *100)+" %"
+    print progress+"\r",
+    sys.stdout.flush()
+
+    
     #rimuovo gli url
     data = re.sub(r"http\S+", "", data)
     bags=  bag(data)
@@ -84,6 +96,17 @@ for number in range(100):
 
 
 print "----------------------------"
-print I
-print posting_list
 
+dictionary=I.keys()
+dictionary.sort()
+#print dictionary 
+#print posting_list
+
+
+#se non esiste la cartella index allora creala
+if not os.path.exists("index"):
+    os.makedirs("index")
+outpath="./index/"
+indexfile= open(outpath+"index.txt", "w")
+for key, val in I.iteritems():
+    indexfile.write(key+"\t"+str(val)+"\n")
