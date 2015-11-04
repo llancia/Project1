@@ -19,8 +19,7 @@ def bag(read_data, threshold=1):
     
     out = dict(Counter(read_data))
     return {i:out[i] for i in out if out[i]>= threshold}
-def update_progress(progress):
-    print '\r[{0}] {1}%'.format('#'*(progress/10), progress)
+
 
 def incrindex(k, leng):
     if k<leng:
