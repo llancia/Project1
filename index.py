@@ -89,7 +89,7 @@ for number in range(TOT_FILE):
     
     #rimuovo gli url
     data = re.sub(r"http\S+", "", data)
-    #rimuovo i prezzi (da fare)
+    #rimuovo i prezzi
     bags=  bag(data)
     #print bags
     addtoIndex(I,bags, posting_list, number)
