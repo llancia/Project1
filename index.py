@@ -82,7 +82,11 @@ I={}
 posting_list= {}
 
 #Per ogni file:
+<<<<<<< HEAD
 TOT_FILE = 10
+=======
+TOT_FILE = 100
+>>>>>>> parent of db7ea8b... indici corretti
 
 for number in range(TOT_FILE):
     #leggilo
