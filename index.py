@@ -6,7 +6,7 @@ from nltk.stem import SnowballStemmer
 snowball_stemmer = SnowballStemmer("italian")
 from collections import Counter
 
-###
+
 ###Funzione per splittare e fare il dizionario
 def bag(read_data, threshold=1):
     read_data= read_data
@@ -20,15 +20,13 @@ def bag(read_data, threshold=1):
     out = dict(Counter(read_data))
     return {i:out[i] for i in out if out[i]>= threshold}
 
-###
-### INCREMENTO DEGLI INDICI PER LO SCORRIMENTO DI PUNTATORI
+
 def incrindex(k, leng):
     if k<leng:
         return k+1
     else:
         return k
-
-### UNISCI UN BAG OF WORD ALL' INDICE PRINCIPALE
+    
 def addtoIndex(I, bag, posting_list, doc_id):
     #print "unisco il file", doc_id
     list1 = I.keys()
@@ -66,44 +64,35 @@ def addtoIndex(I, bag, posting_list, doc_id):
         b=incrindex(b, l2)
 
 
-###Leggi il file
+
 def readfile(number):
     
     path= "./documents/documents-"+str((number/500) *500).zfill(6)+"-"+str((number/500)*500 +500).zfill(6)+"/"
     file = open(path+str(number).zfill(6)+".txt","r")
     data=file.readline().decode("utf-8")
-    return data
-
-
-##########MAIN SCRIPT#########
-
+    return data    
 #Creo l'indice
 I={}
 posting_list= {}
 
 #Per ogni file:
-<<<<<<< HEAD
-TOT_FILE = 10
-=======
-TOT_FILE = 100
->>>>>>> parent of db7ea8b... indici corretti
+TOT_FILE = 63364
 
 for number in range(TOT_FILE):
     #leggilo
     data = readfile(number)
 
-    #Aggorna il progress meter
     progress= "completamento "+str( (number*1.)/TOT_FILE *100)+" %"
-    #print progress+"\r",
+    print progress+"\r",
     sys.stdout.flush()
 
     
-    #rimuovo gli url e il prezzo
-    splitted = re.split(r"\t+", data)
-    filtered_data = splitted[0]+ splitted[3]+splitted[4]
-    print filtered_data
-    #bags =  bag(filtered_data)
-    #addtoIndex(I,bags, posting_list, number)
+    #rimuovo gli url
+    data = re.sub(r"http\S+", "", data)
+    #rimuovo i prezzi
+    bags=  bag(data)
+    #print bags
+    addtoIndex(I,bags, posting_list, number)
 
 
 print "----------------------------"
@@ -113,7 +102,7 @@ dictionary.sort()
 #print dictionary 
 #print posting_list
 
-wait =raw_imput("aspetta")
+
 
 #se non esiste la cartella index allora creala
 if not os.path.exists("index"):
@@ -129,5 +118,4 @@ for word in dictionary:
         outstr+=str(element[0])+"\t"
     postlistfile.write(str(nword)+"\t"+outstr+"\n")
     nword+=1
-
 
