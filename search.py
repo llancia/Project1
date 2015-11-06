@@ -20,7 +20,7 @@ temp = postingfile.read().splitlines()
 postings ={}
 for item in temp:
         item = item.split("\t")
-        postings[item[0]] = [item[n] for n in range(1,len(item))]
+        postings[item[0]] = [item[n] for n in range(1,len(item)-1)]
 
         
 result = intersect(Index.keys(), data_query.keys())
@@ -28,9 +28,13 @@ result = intersect(Index.keys(), data_query.keys())
 
 
 list_res = postings[Index[result[0]]]
+
 for item in result:
         list_res = intersect(list_res, postings[Index[item]])
-print list_res
 
+for res_item in list_res:
+        file = readfile(int(res_item))
+        print file
+        print "\n-------------------------------\n"
 
 
