@@ -79,7 +79,6 @@ def intersect(set1, set2):
     a=0
     b=0
     while(a<l1 and b<l2):
-        print a,b
         if set1[a]==set2[b]:
             inter.append(set1[a])
             a=incrindex(a, l1)
