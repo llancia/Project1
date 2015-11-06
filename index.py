@@ -9,9 +9,8 @@ from collections import Counter
 
 ###Funzione per splittare e fare il dizionario
 def bag(read_data, threshold=1):
-    read_data= read_data
     #tokenizza, rimuovi le stopword e fai lo stemming
-    read_data=  re.split("['\`\-\=\~\!\@\#\$\%\^\&\*\(\)\_\+\[\]\{\}\;\'\\\:\"\|\<\,\.\/\>\<\>\?\"\\s\''']+", read_data)
+    read_data=  re.findall(r"\b[^\s]+\b", read_data)
     if read_data[-1]==u'':
         del read_data[-1]
     filtered_words = [word for word in read_data if word not in nl.corpus.stopwords.words('italian')]
@@ -57,7 +56,7 @@ def addtoIndex(I, bag, posting_list, doc_id):
             b=incrindex(b, l2)
         else: #list1[a]<list2[b]
             a=incrindex(a, l1)
-            
+    ##PROBLABILMENTE SUPERFLUO        
     if b<l2:
         I[list2[b]]=1
         posting_list[list2[b]]=[[doc_id, bag[list2[b]]]]
@@ -93,6 +92,7 @@ for number in range(TOT_FILE):
     #rimuovo i prezzi
     data = re.sub(r"([0-9]{1,3}\.?){4,}", "", data)
     bags=  bag(data)
+    #print bags
     addtoIndex(I,bags, posting_list, number)
 
 print "----------------------------"
