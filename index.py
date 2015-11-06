@@ -75,7 +75,7 @@ def readfile(number):
 I={}
 posting_list= {}
 
-#Per ogni file:
+#Per ogni file 63364:
 TOT_FILE = 63364
 
 for number in range(TOT_FILE):
@@ -89,11 +89,11 @@ for number in range(TOT_FILE):
     
     #rimuovo gli url
     data = re.sub(r"http\S+", "", data)
+    data= data.replace(u"\u20AC","")
     #rimuovo i prezzi
+    data = re.sub(r"([0-9]{1,3}\.?){4,}", "", data)
     bags=  bag(data)
-    #print bags
     addtoIndex(I,bags, posting_list, number)
-
 
 print "----------------------------"
 
