@@ -42,9 +42,13 @@ for item in result:
 print "Content-type:text/html\r\n\r\n"
 
 for res_item in list_res:
-        file = readfile(int(res_item))
-        print "<li>"
-        print file.encode("utf-8")
+        print "<li class='card'>"
+        afile = readfile(int(res_item))
+        afile= afile.split("\t")
+        for a_item in afile:
+                print "<p>"
+                print a_item.encode("utf-8")
+                print "</ p>"
         print "</ li>"
 
 

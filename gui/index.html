@@ -7,7 +7,7 @@
         <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
         <link type="text/css" rel="stylesheet" href="css/lorenzo.css" media="screen, projection"/>
-        
+
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
@@ -36,13 +36,18 @@
                         <input type="submit" id="execquery" class="btn"></input>
                     </div>
                 </form>
-            </div>
-            <div class="result center white container">
-            </div>
+            <div id="loadinganim" style="display:none" class="progress">
+      <div class="indeterminate"></div>
+  </div>
         </div>
-        <!--Import jQuery before materialize.js-->
-        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script type="text/javascript" src="js/materialize.min.js"></script>
-        <script type="text/javascript" src="js/projectone.js"></script>
+        <div class=" center container">
+            <ul class="result">
+            </ul>
+        </div>
+        </div>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/projectone.js"></script>
     </body>
 </html>
