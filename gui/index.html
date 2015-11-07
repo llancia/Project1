@@ -26,17 +26,23 @@
         </div>
         <div class="mainpage center">
             <div class="container white search-wrapper white">
-                <form>
+                <form id="queryform">
                     <div class="input-field">
                         <input id="search" type="search" required>
                         <label for="search"><i class="material-icons">search</i></label>
                         <i class="material-icons">close</i>
                     </div>
+                    <div>
+                        <input type="submit" id="execquery" class="btn"></input>
+                    </div>
                 </form>
+            </div>
+            <div class="result center white container">
             </div>
         </div>
         <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
+        <script type="text/javascript" src="js/projectone.js"></script>
     </body>
 </html>
