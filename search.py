@@ -24,17 +24,19 @@ for item in temp:
 
         
 result = intersect(Index.keys(), data_query.keys())
-#print result
 
+if len(result)>0:
 
-list_res = postings[Index[result[0]]]
+    list_res = postings[Index[result[0]]]
 
-for item in result:
+    for item in result:
         list_res = intersect(list_res, postings[Index[item]])
 
-for res_item in list_res:
+    for res_item in list_res:
         file = readfile(int(res_item))
         print file
         print "\n-------------------------------\n"
+else:
 
+    print "No document found"
 
