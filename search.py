@@ -33,9 +33,14 @@ if len(result)>0:
     for item in result:
         list_res = intersect(list_res, postings[Index[item]])
 
-    for res_item in list_res:
-        file = readfile(int(res_item))
-        print file
+   
+    res_file =[ readfile(int(res_item)) for res_item in list_res]
+    cllist=  clustering(res_file, len(res_file)/2)
+    
+    for cluster in cllist:
+        for item in cluster:
+            print res_file[item]
+            print "\n"
         print "\n-------------------------------\n"
 else:
 
