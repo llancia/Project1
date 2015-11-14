@@ -1,7 +1,7 @@
 #!/Users/lorenzo/anaconda/bin/python
 import sys
 from  p1lib import *
-
+from linecache import getline
 
 def readfile(number):
     path= "./documents/documents-"+str((number/500) *500).zfill(6)+"-"+str((number/500)*500 +500).zfill(6)+"/"
@@ -24,16 +24,15 @@ for item in temp:
         item = item.split("\t")
         Index[item[1]]=item[0]
 
-postingfile =  open("./index/postings.txt","r")
-temp = postingfile.read().splitlines()
-postings ={}
-for item in temp:
-        item = item.split("\t")
-        postings[item[0]] = [item[n] for n in range(1,len(item)-1)]
+
 
         
 result = intersect(Index.keys(), data_query.keys())
-
+postings ={}
+#postingfile =  open("./index/postings.txt","r")
+for word in result:
+        temp = getline("./index/postings.txt",int(Index[word])+1).split("\t")
+        postings[temp[0]] = [temp[n] for n in range(1,len(temp)-1)]
 
 list_res = postings[Index[result[0]]]
 
