@@ -23,10 +23,11 @@
 }
 
 .cluster{
-    background-color: antiquewhite;
 }
 
 .small-container{
     padding: 5%;
-    background-color: white
+}
+.collapsible{
+    border: 0;
 }

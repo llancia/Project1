@@ -46,14 +46,14 @@ if len(result)>0:
     cllist=  clustering(res_file, len(res_file)/2)
     print "Content-type:text/html\r\n\r\n"
     for cluster in cllist:
-        print "<div class='cluster'><h5>cluster</h5><ul class='collapsible small-container' data-collapsible='accordion'>"
+        print "<div class='cluster'><h5 class='teal-text'>cluster</h5><ul class='collapsible small-container  teal lighten-2' data-collapsible='accordion'>"
         for item in cluster:
             print "<li>"
             part = res_file[item].split("\t")
             print '<div class="collapsible-header">'
             print part[0].encode("utf-8")
             print '</div>'
-            print '<div class="collapsible-body">'
+            print '<div class="collapsible-body white">'
             print '<span>'+part[1].encode("utf-8")+'</span>'
             print '<span>'+part[2].encode("utf-8")+'</span>'
             print '<p><a class="btn" href="'+part[3].encode("utf-8")+'">link</a></p>'
