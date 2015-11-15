@@ -1,4 +1,4 @@
- h1,h2,h3,h4{
+ h1,h2,h3,h4, h5{
     font-family: Roboto;
     font-weight: 200;
   }
@@ -20,4 +20,13 @@
 }
 .result li{
     list-style: none;
+}
+
+.cluster{
+    background-color: antiquewhite;
+}
+
+.small-container{
+    padding: 5%;
+    background-color: white
 }

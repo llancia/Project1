@@ -3,3 +3,6 @@
 documents/
 index/
 *.pyc
+documents-old/
+index-old/
+docs/

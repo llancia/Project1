@@ -125,7 +125,7 @@ def single_linkage(D, k=2):
 
 
 def clustering(listofdocs, k):
-    baglist = [bag(item,2).keys() for item in listofdocs]
+    baglist = [bag(item,1).keys() for item in listofdocs]
     Matrix = [[1-jaccard(baglist[x],baglist[y]) for x in range(len(baglist))] for y in range(len(baglist))]
     Matrix=np.array(Matrix)
     B=single_linkage(Matrix, k)

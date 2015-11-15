@@ -5,8 +5,11 @@ I={}
 posting_list= {}
 
 #Per ogni file 63364:
-TOT_FILE = 63364
+meta_file = open("./documents/num_of_file.txt", "r")
 
+
+TOT_FILE =int(meta_file.read())
+meta_file.close()
 for number in range(TOT_FILE):
     #leggilo
     data = readfile(number)

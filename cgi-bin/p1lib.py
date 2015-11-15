@@ -1,5 +1,5 @@
-
 import re
+import numpy as np
 import sys
 import os
 import nltk as nl
@@ -91,3 +91,53 @@ def intersect(set1, set2):
             
     return inter
     
+def jaccard(s1, s2):
+    st1=set(s1)
+    st2=set(s2)
+    u = set(st1).union(st2)
+    i = set(st1).intersection(st2)
+    return float(len(i))/len(u)
+
+def single_linkage(D, k=2):
+    ncluster = len(D[0])
+    cluster = range(len(D[0]))
+    np.fill_diagonal(D, np.inf)
+    while (ncluster >k):
+        #Troviamo il pi vicino 
+        x, y = np.unravel_index(D.argmin(), D.shape)
+        #Joiniamo i pi vicini
+      
+        cluster = [x if item == y else item for item in cluster]     
+        #aggiorniamo la matrice
+        D[x][y] = np.inf
+        D[y][x] = np.inf
+        for index in range(len(D[0])):
+            if (D[x][index]==np.inf or D[y][index]==np.inf):
+                val = np.inf
+            else:
+                val = min(D[x][index], D[y][index])
+            D[x][index] = val
+            D[y][index] = val
+            D[index][x] = val
+            D[index][y] = val
+        ncluster = ncluster - 1
+    return cluster
+
+
+def clustering(listofdocs, k):
+    baglist = [bag(item,1).keys() for item in listofdocs]
+    Matrix = [[1-jaccard(baglist[x],baglist[y]) for x in range(len(baglist))] for y in range(len(baglist))]
+    Matrix=np.array(Matrix)
+    B=single_linkage(Matrix, k)
+    
+    clusterList=[[]for item in range(max(B)+1)]
+
+    for item in range(len(Matrix[0])):
+            clusterList[B[item]].append(item)
+            
+    new_clist = []
+    for i in range(len(clusterList)):
+        if clusterList[i] != []:
+            new_clist.append(clusterList[i])
+
+    return new_clist

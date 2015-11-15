@@ -36,7 +36,6 @@ if len(result)>0:
    
     res_file =[ readfile(int(res_item)) for res_item in list_res]
     cllist=  clustering(res_file, len(res_file)/2)
-    
     for cluster in cllist:
         for item in cluster:
             print res_file[item]

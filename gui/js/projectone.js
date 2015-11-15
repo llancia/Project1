@@ -10,7 +10,8 @@ $(document).ready(function(){
                 data: {"query":query},
                 success: function(response){
                         $("#loadinganim").hide()
-                        $(".result").html(response);    
+                        $(".result").html(response); 
+                        $('.collapsible').collapsible()
                 }
             });
     });
