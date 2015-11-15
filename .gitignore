@@ -1,7 +1,5 @@
 .#index.py
 .DS_Store
-documents/
-index/
 *.pyc
 documents-old/
 index-old/
